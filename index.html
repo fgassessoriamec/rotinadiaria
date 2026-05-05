@@ -6,7 +6,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Rotina">
-<meta name="theme-color" content="#f5f4ff">
+<meta name="theme-color" content="#7c6ff7">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Rotina</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -730,6 +732,13 @@ function switchScreen(name) {
 // ── INIT ──
 load(); buildWeek(); render();
 setInterval(()=>{const n=new Date();if(n.getHours()===0&&n.getMinutes()===0){state.checked={};save();render();}},60000);
+
+if('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/rotinadiaria/sw.js')
+      .catch(err => console.log('SW error:', err));
+  });
+}
 </script>
 </body>
 </html>
